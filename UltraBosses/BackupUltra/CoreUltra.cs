@@ -1,30 +1,33 @@
 //cs_include Scripts/CoreBots.cs
 //cs_include Scripts/CoreAdvanced.cs
 //cs_include Scripts/CoreFarms.cs
-//cs_include Scripts/Army/CoreArmyLite.cs
+//cs_include Scripts/Army/CoreArmyLiteReborn.cs
 //cs_include Scripts/Farm/BuyScrolls.cs
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Skua.Core.Interfaces;
 using Skua.Core.Models;
 using Skua.Core.Models.Items;
+using Skua.Core.Options;
 
 public class CoreUltra
 {
     private IScriptInterface Bot => IScriptInterface.Instance;
     private CoreBots Core => CoreBots.Instance;
     private CoreAdvanced Adv = new();
-    private static CoreArmyLite sArmy = new();
+    private static CoreArmyLiteReborn sArmy = new();
     private BuyScrolls Scroll = new();
     private int[] skillList;
 
     public string OptionsStorage = "CoreUltraOptionsStorage";
-    private string[] PartyMembers;
-    private string player1;
-    private string player2;
-    private string player3;
-    private string player4;
+    private string?[] PartyMembers;
+    private string? player1;
+    private string? player2;
+    private string? player3;
+    private string? player4;
     private string monsPriorityID;
     private DateTime targetTime;
     private bool waitTaunt = false;
@@ -645,9 +648,8 @@ public class CoreUltra
         }
     }
 
-    public async void UltraDarkon()
+    public void UltraDarkon()
     {
-        string bossId = "1";
         string cellMsg = "inDarkonEnterCell";
         string clientName = "Ultra Darkon";
         string mapName = "ultradarkon";
@@ -704,7 +706,6 @@ public class CoreUltra
         int countCheck = 0;
         Core.Logger($"starting {mapName}");
         bool fight = true;
-        int countRestart = 0;
 
         while (!Bot.ShouldExit && fight)
         {
@@ -808,7 +809,6 @@ public class CoreUltra
         int countCheck = 0;
         Core.Logger($"starting {mapName}");
         bool fight = true;
-        int countRestart = 0;
 
         while (!Bot.ShouldExit && fight)
         {
@@ -977,7 +977,7 @@ public class CoreUltra
     private int speakerCounter = 0;
     private bool inZone = false;
 
-    private (string, string, string, int, bool) whatAction()
+    private (string?, string?, string?, int, bool) whatAction()
     {
         // who taunt, who zone, in/out, wait skill, need prax
         switch (speakerCounter)
@@ -1894,10 +1894,10 @@ public class CoreUltra
 
     private void setPlayerName()
     {
-        player1 = Bot.Config.Get<string>("player1");
-        player2 = Bot.Config.Get<string>("player2");
-        player3 = Bot.Config.Get<string>("player3");
-        player4 = Bot.Config.Get<string>("player4");
+        player1 = Bot.Config!.Get<string>("player1");
+        player2 = Bot.Config!.Get<string>("player2");
+        player3 = Bot.Config!.Get<string>("player3");
+        player4 = Bot.Config!.Get<string>("player4");
     }
 
     private void setTargetTime(int time)
