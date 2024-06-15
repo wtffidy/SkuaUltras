@@ -2,9 +2,10 @@
 //cs_include Scripts/CoreFarms.cs
 //cs_include Scripts/CoreAdvanced.cs
 //cs_include Scripts/CoreStory.cs
-//cs_include Scripts/Army/CoreArmyLiteReborn.cs
+//cs_include Scripts/Army/SkuaUltras-main\CoreArmyLiteReborn.cs
 //cs_include Scripts/Farm/BuyScrolls.cs
 //cs_include Scripts/Army/UltraBosses/BackupUltra/CoreUltra.cs
+//cs_include Scripts/Army/SkuaUltras-main\UltraBosses\BackupUltra\CoreUltra.cs
 using Skua.Core.Interfaces;
 
 public class AllUltra

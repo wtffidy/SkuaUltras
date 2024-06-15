@@ -1,8 +1,9 @@
 //cs_include Scripts/CoreBots.cs
 //cs_include Scripts/CoreAdvanced.cs
 //cs_include Scripts/CoreFarms.cs
-//cs_include Scripts/Army/CoreArmyLiteReborn.cs
+//cs_include Scripts/Army/CoreArmyLite.cs
 //cs_include Scripts/Farm/BuyScrolls.cs
+//cs_include Scripts/Army/SkuaUltras-main\CoreArmyLiteReborn.cs
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -18,17 +19,17 @@ public class CoreUltra
     private IScriptInterface Bot => IScriptInterface.Instance;
     private CoreBots Core => CoreBots.Instance;
     private CoreAdvanced Adv = new();
-    private static CoreArmyLiteReborn sArmy = new();
     private BuyScrolls Scroll = new();
-    private int[] skillList;
+    private static CoreArmyLiteReborn sArmy = new();
+    private int[]? skillList;
 
     public string OptionsStorage = "CoreUltraOptionsStorage";
-    private string?[] PartyMembers;
+    private string?[]? PartyMembers;
     private string? player1;
     private string? player2;
     private string? player3;
     private string? player4;
-    private string monsPriorityID;
+    private string? monsPriorityID;
     private DateTime targetTime;
     private bool waitTaunt = false;
 
@@ -125,7 +126,7 @@ public class CoreUltra
         string tempInv = "Ultra Avatar Tyndarius Defeated";
         int questId = 8245;
 
-        initClass(UltraBosses.UltraTyndarius);
+        InitClass(UltraBosses.UltraTyndarius);
 
         string classUsed = Bot.Player.CurrentClass!.Name;
 
@@ -146,7 +147,7 @@ public class CoreUltra
 
         void skillAction()
         {
-            for (int i = 0; i < skillList.Length; i++)
+            for (int i = 0; i < skillList?.Length; i++)
             {
                 Bot.Skills.UseSkill(skillList[i]);
                 if (classUsed != "Lord Of Order")
@@ -179,7 +180,7 @@ public class CoreUltra
         string tempInv = "Ultra Warden Defeated";
         int questId = 8153;
 
-        initClass(UltraBosses.UltraWarden);
+        InitClass(UltraBosses.UltraWarden);
 
         string classUsed = Bot.Player.CurrentClass!.Name;
 
@@ -200,7 +201,7 @@ public class CoreUltra
 
         void skillAction()
         {
-            for (int i = 0; i < skillList.Length; i++)
+            for (int i = 0; i < skillList?.Length; i++)
             {
                 Bot.Skills.UseSkill(skillList[i]);
                 if (classUsed == "Legion Revenant" || classUsed == "LightCaster")
@@ -236,7 +237,7 @@ public class CoreUltra
         string tempInv = "Ultra Ezrajal Defeated";
         int questId = 8152;
 
-        initClass(UltraBosses.UltraEzrajal);
+        InitClass(UltraBosses.UltraEzrajal);
 
         string classUsed = Bot.Player.CurrentClass!.Name;
 
@@ -258,7 +259,7 @@ public class CoreUltra
         Bot.Events.CounterAttack -= _KillEzrajal;
         void skillAction()
         {
-            for (int i = 0; i < skillList.Length; i++)
+            for (int i = 0; i < skillList?.Length; i++)
             {
                 if (!shouldAttack)
                 {
@@ -318,7 +319,7 @@ public class CoreUltra
         string tempInv = "Ultra Engineer Defeated";
         int questId = 8154;
 
-        initClass(UltraBosses.UltraEngineer);
+        InitClass(UltraBosses.UltraEngineer);
 
         string classUsed = Bot.Player.CurrentClass!.Name;
 
@@ -338,7 +339,7 @@ public class CoreUltra
         );
         void skillAction()
         {
-            for (int i = 0; i < skillList.Length; i++)
+            for (int i = 0; i < skillList?.Length; i++)
             {
                 Bot.Skills.UseSkill(skillList[i]);
                 if (classUsed == "Legion Revenant" || classUsed == "ArchPaladin")
@@ -371,7 +372,7 @@ public class CoreUltra
         string tempInv = "Champion Drakath Defeated";
         int questId = 8300;
 
-        initClass(UltraBosses.Championdrakath);
+        InitClass(UltraBosses.Championdrakath);
 
         string classUsed = Bot.Player.CurrentClass!.Name;
 
@@ -392,7 +393,7 @@ public class CoreUltra
 
         void skillAction()
         {
-            for (int i = 0; i < skillList.Length; i++)
+            for (int i = 0; i < skillList?.Length; i++)
             {
                 Bot.Skills.UseSkill(skillList[i]);
                 if (classUsed == "Legion Revenant" && drakathHealthCheck(GetMonsterHP("1")))
@@ -423,7 +424,7 @@ public class CoreUltra
         string tempInv = "Dage the Dark Lord Defeated";
         int questId = 8547;
 
-        initClass(UltraBosses.UltraDage);
+        InitClass(UltraBosses.UltraDage);
 
         string classUsed = Bot.Player.CurrentClass!.Name;
         Bot.Events.RunToArea += Event_RunToArea;
@@ -483,7 +484,7 @@ public class CoreUltra
 
         void skillAction()
         {
-            for (int i = 0; i < skillList.Length; i++)
+            for (int i = 0; i < skillList?.Length; i++)
             {
                 Bot.Skills.UseSkill(skillList[i]);
                 if (classUsed == "Legion Revenant" && !Bot.Target.HasActiveAura("Focus"))
@@ -515,7 +516,7 @@ public class CoreUltra
         string tempInv = "Nulgath the Archfiend Defeated?";
         int questId = 8692;
 
-        initClass(UltraBosses.UltraNulgath);
+        InitClass(UltraBosses.UltraNulgath);
 
         string classUsed = Bot.Player.CurrentClass!.Name;
         killWithArmy(
@@ -535,7 +536,7 @@ public class CoreUltra
 
         void skillAction()
         {
-            for (int i = 0; i < skillList.Length; i++)
+            for (int i = 0; i < skillList?.Length; i++)
             {
                 Bot.Skills.UseSkill(skillList[i]);
                 if (
@@ -565,7 +566,7 @@ public class CoreUltra
         string tempInv = "Drago Dethroned";
         int questId = 8397;
 
-        initClass(UltraBosses.UltraDrago);
+        InitClass(UltraBosses.UltraDrago);
 
         string classUsed = Bot.Player.CurrentClass!.Name;
         killWithArmy(
@@ -585,7 +586,7 @@ public class CoreUltra
 
         void skillAction()
         {
-            for (int i = 0; i < skillList.Length; i++)
+            for (int i = 0; i < skillList?.Length; i++)
             {
                 Bot.Skills.UseSkill(skillList[i]);
                 if (
@@ -615,7 +616,7 @@ public class CoreUltra
         string inv = "The First Speaker Silenced";
         int questId = 9173;
 
-        initClass(UltraBosses.UltraSpeaker);
+        InitClass(UltraBosses.UltraSpeaker);
 
         string classUsed = Bot.Player.CurrentClass!.Name;
         Bot.Events.ExtensionPacketReceived -= UltraSpeakerTodo;
@@ -640,7 +641,7 @@ public class CoreUltra
         {
             if (GetMonsterHP("1") >= 9900000)
                 speakerCounter = 0;
-            for (int i = 0; i < skillList.Length; i++)
+            for (int i = 0; i < skillList?.Length; i++)
             {
                 Bot.Skills.UseSkill(skillList[i]);
             }
@@ -662,7 +663,7 @@ public class CoreUltra
 
         // Bot.Events.ExtensionPacketReceived -= DarkonHandler;
         // Bot.Events.ExtensionPacketReceived += DarkonHandler;
-        initClass(UltraBosses.UltraDarkon);
+        InitClass(UltraBosses.UltraDarkon);
         sArmy.ClearLogFile();
         string classUsed = Bot.Player.CurrentClass!.Name;
 
@@ -675,7 +676,7 @@ public class CoreUltra
 
         // initClass(whatUltra);
 
-        string[] monsList = monsPriorityID.Split(',');
+        string[] monsList = monsPriorityID!.Split(',');
 
         setClient(clientName);
 
@@ -732,7 +733,7 @@ public class CoreUltra
                 {
                     int monsHP = GetMonsterHP("1");
 
-                    for (int i = 0; i < skillList.Length; i++)
+                    for (int i = 0; i < skillList?.Length; i++)
                     {
                         if (classUsed == "Lord Of Order" && (monsHP <= 4700000 && monsHP >= 4400000))
                             Bot.Skills.UseSkill(4);
@@ -777,7 +778,7 @@ public class CoreUltra
 
         // initClass(whatUltra);
 
-        string[] monsList = monsPriorityID.Split(',');
+        string[] monsList = monsPriorityID!.Split(',');
 
         setClient(clientName);
         sArmy.ClearLogFile();
@@ -845,12 +846,12 @@ public class CoreUltra
         Bot.Sleep(1000);
     }
 
-    public void waitForParty(string? cell = null, string? pad = null)
+    public void WaitForParty(string? cell = null, string? pad = null)
     {
         int i = 0;
         if (cell != null)
-            Core.Jump(cell, pad != null ? pad : "Left");
-        int PartySize = PartyMembers.Length;
+            Core.Jump(cell, pad ?? "Left");
+        int PartySize = PartyMembers!.Length;
         while (
             !Bot.ShouldExit
             && (
@@ -876,13 +877,13 @@ public class CoreUltra
                         break;
                     }
                     Core.Logger(
-                        $"[{Bot.Map.CellPlayers.Count()}/{PartySize}] Waiting for {String.Join(" & ", missingPlayers)}"
+                        $"[{Bot.Map.CellPlayers.Count()}/{PartySize}] Waiting for {string.Join(" & ", missingPlayers)}"
                     );
                 }
                 else if (Bot.Map.PlayerNames != null && Bot.Map.PlayerNames.Count() > 0)
                 {
                     var missingPlayers = PartyMembers
-                        .Where(x => !Bot.Map.PlayerNames.Contains(x))
+                        .Where(x => x != null && !Bot.Map.PlayerNames.Contains(x))
                         .ToList();
                     if (missingPlayers.Count == 1 && missingPlayers[0] == Bot.Player.Username)
                     {
@@ -890,7 +891,7 @@ public class CoreUltra
                         break;
                     }
                     Core.Logger(
-                        $"[{Bot.Map.PlayerNames.Count()}/{PartySize}] Waiting for {String.Join(" & ", missingPlayers)}"
+                        $"[{Bot.Map.PlayerNames.Count()}/{PartySize}] Waiting for {string.Join(" & ", missingPlayers)}"
                     );
                 }
                 else
@@ -1026,7 +1027,7 @@ public class CoreUltra
             {
                 case "event":
                     string zone = data.args?["zoneSet"]!;
-                    string currentClass2 = Bot.Player.CurrentClass?.Name;
+                    _ = Bot.Player.CurrentClass?.Name;
                     if (zone is not null && zone == "A")
                     {
                         if (Bot.Player.CurrentClass?.Name == "LegionRevenant")
@@ -1127,7 +1128,7 @@ public class CoreUltra
             if (isMonsterAlive(monsterList[i]))
             {
                 int x = 0;
-                if (Int32.TryParse(monsterList[i], out x))
+                if (int.TryParse(monsterList[i], out x))
                 {
                     Bot.Combat.Attack(x);
                     return;
@@ -1152,8 +1153,8 @@ public class CoreUltra
     {
         try
         {
-            string jsonData = Bot.Flash.Call("availableMonsters");
-            var monsters = JArray.Parse(jsonData);
+            string? jsonData = Bot.Flash.Call("availableMonsters");
+            var monsters = JArray.Parse(jsonData!);
             if (monsters.Count == 0)
             {
                 return false;
@@ -1187,8 +1188,8 @@ public class CoreUltra
     {
         try
         {
-            string jsonData = Bot.Flash.Call("availableMonsters");
-            var monsters = JArray.Parse(jsonData);
+            string? jsonData = Bot.Flash.Call("availableMonsters");
+            var monsters = JArray.Parse(jsonData!);
 
             foreach (var mon in monsters)
             {
@@ -1205,108 +1206,108 @@ public class CoreUltra
         }
     }
 
-    private void initClass(UltraBosses whatUltra)
+    private void InitClass(UltraBosses whatUltra)
     {
         switch (whatUltra)
         {
             case UltraBosses.UltraEngineer:
-                if (player1.ToLower() == Bot.Player.Username.ToLower())
+                if (player1!.ToLower() == Bot.Player.Username.ToLower())
                     ultraEngineerClass(1);
-                else if (player2.ToLower() == Bot.Player.Username.ToLower())
+                else if (player2!.ToLower() == Bot.Player.Username.ToLower())
                     ultraEngineerClass(2);
-                else if (player3.ToLower() == Bot.Player.Username.ToLower())
+                else if (player3!.ToLower() == Bot.Player.Username.ToLower())
                     ultraEngineerClass(3);
-                else if (player4.ToLower() == Bot.Player.Username.ToLower())
+                else if (player4!.ToLower() == Bot.Player.Username.ToLower())
                     ultraEngineerClass(4);
                 break;
             case UltraBosses.UltraTyndarius:
-                if (player1.ToLower() == Bot.Player.Username.ToLower())
+                if (player1!.ToLower() == Bot.Player.Username.ToLower())
                     ultraTyndariusClass(1);
-                else if (player2.ToLower() == Bot.Player.Username.ToLower())
+                else if (player2!.ToLower() == Bot.Player.Username.ToLower())
                     ultraTyndariusClass(2);
-                else if (player3.ToLower() == Bot.Player.Username.ToLower())
+                else if (player3!.ToLower() == Bot.Player.Username.ToLower())
                     ultraTyndariusClass(3);
-                else if (player4.ToLower() == Bot.Player.Username.ToLower())
+                else if (player4!.ToLower() == Bot.Player.Username.ToLower())
                     ultraTyndariusClass(4);
                 break;
             case UltraBosses.UltraWarden:
-                if (player1.ToLower() == Bot.Player.Username.ToLower())
+                if (player1!.ToLower() == Bot.Player.Username.ToLower())
                     ultraWardenClass(1);
-                else if (player2.ToLower() == Bot.Player.Username.ToLower())
+                else if (player2!.ToLower() == Bot.Player.Username.ToLower())
                     ultraWardenClass(2);
-                else if (player3.ToLower() == Bot.Player.Username.ToLower())
+                else if (player3!.ToLower() == Bot.Player.Username.ToLower())
                     ultraWardenClass(3);
-                else if (player4.ToLower() == Bot.Player.Username.ToLower())
+                else if (player4!.ToLower() == Bot.Player.Username.ToLower())
                     ultraWardenClass(4);
                 break;
             case UltraBosses.UltraEzrajal:
-                if (player1.ToLower() == Bot.Player.Username.ToLower())
+                if (player1!.ToLower() == Bot.Player.Username.ToLower())
                     ultraEzrajalClass(1);
-                else if (player2.ToLower() == Bot.Player.Username.ToLower())
+                else if (player2!.ToLower() == Bot.Player.Username.ToLower())
                     ultraEzrajalClass(2);
-                else if (player3.ToLower() == Bot.Player.Username.ToLower())
+                else if (player3!.ToLower() == Bot.Player.Username.ToLower())
                     ultraEzrajalClass(3);
-                else if (player4.ToLower() == Bot.Player.Username.ToLower())
+                else if (player4!.ToLower() == Bot.Player.Username.ToLower())
                     ultraEzrajalClass(4);
                 break;
             case UltraBosses.Championdrakath:
-                if (player1.ToLower() == Bot.Player.Username.ToLower())
+                if (player1!.ToLower() == Bot.Player.Username.ToLower())
                     championDrakthClass(1);
-                else if (player2.ToLower() == Bot.Player.Username.ToLower())
+                else if (player2!.ToLower() == Bot.Player.Username.ToLower())
                     championDrakthClass(2);
-                else if (player3.ToLower() == Bot.Player.Username.ToLower())
+                else if (player3!.ToLower() == Bot.Player.Username.ToLower())
                     championDrakthClass(3);
-                else if (player4.ToLower() == Bot.Player.Username.ToLower())
+                else if (player4!.ToLower() == Bot.Player.Username.ToLower())
                     championDrakthClass(4);
                 break;
             case UltraBosses.UltraDage:
-                if (player1.ToLower() == Bot.Player.Username.ToLower())
+                if (player1!.ToLower() == Bot.Player.Username.ToLower())
                     ultraDageClass(1);
-                else if (player2.ToLower() == Bot.Player.Username.ToLower())
+                else if (player2!.ToLower() == Bot.Player.Username.ToLower())
                     ultraDageClass(2);
-                else if (player3.ToLower() == Bot.Player.Username.ToLower())
+                else if (player3!.ToLower() == Bot.Player.Username.ToLower())
                     ultraDageClass(3);
-                else if (player4.ToLower() == Bot.Player.Username.ToLower())
+                else if (player4!.ToLower() == Bot.Player.Username.ToLower())
                     ultraDageClass(4);
                 break;
             case UltraBosses.UltraNulgath:
-                if (player1.ToLower() == Bot.Player.Username.ToLower())
+                if (player1!.ToLower() == Bot.Player.Username.ToLower())
                     ultraNulgathClass(1);
-                else if (player2.ToLower() == Bot.Player.Username.ToLower())
+                else if (player2!.ToLower() == Bot.Player.Username.ToLower())
                     ultraNulgathClass(2);
-                else if (player3.ToLower() == Bot.Player.Username.ToLower())
+                else if (player3!.ToLower() == Bot.Player.Username.ToLower())
                     ultraNulgathClass(3);
-                else if (player4.ToLower() == Bot.Player.Username.ToLower())
+                else if (player4!.ToLower() == Bot.Player.Username.ToLower())
                     ultraNulgathClass(4);
                 break;
             case UltraBosses.UltraDrago:
-                if (player1.ToLower() == Bot.Player.Username.ToLower())
+                if (player1!.ToLower() == Bot.Player.Username.ToLower())
                     ultraDragoClass(1);
-                else if (player2.ToLower() == Bot.Player.Username.ToLower())
+                else if (player2!.ToLower() == Bot.Player.Username.ToLower())
                     ultraDragoClass(2);
-                else if (player3.ToLower() == Bot.Player.Username.ToLower())
+                else if (player3!.ToLower() == Bot.Player.Username.ToLower())
                     ultraDragoClass(3);
-                else if (player4.ToLower() == Bot.Player.Username.ToLower())
+                else if (player4!.ToLower() == Bot.Player.Username.ToLower())
                     ultraDragoClass(4);
                 break;
             case UltraBosses.UltraSpeaker:
-                if (player1.ToLower() == Bot.Player.Username.ToLower())
+                if (player1!.ToLower() == Bot.Player.Username.ToLower())
                     ultraSpeakerClass(1);
-                else if (player2.ToLower() == Bot.Player.Username.ToLower())
+                else if (player2!.ToLower() == Bot.Player.Username.ToLower())
                     ultraSpeakerClass(2);
-                else if (player3.ToLower() == Bot.Player.Username.ToLower())
+                else if (player3!.ToLower() == Bot.Player.Username.ToLower())
                     ultraSpeakerClass(3);
-                else if (player4.ToLower() == Bot.Player.Username.ToLower())
+                else if (player4!.ToLower() == Bot.Player.Username.ToLower())
                     ultraSpeakerClass(4);
                 break;
             case UltraBosses.UltraDarkon:
-                if (player1.ToLower() == Bot.Player.Username.ToLower())
+                if (player1!.ToLower() == Bot.Player.Username.ToLower())
                     ultraDarkonClass(1);
-                else if (player2.ToLower() == Bot.Player.Username.ToLower())
+                else if (player2!.ToLower() == Bot.Player.Username.ToLower())
                     ultraDarkonClass(2);
-                else if (player3.ToLower() == Bot.Player.Username.ToLower())
+                else if (player3!.ToLower() == Bot.Player.Username.ToLower())
                     ultraDarkonClass(3);
-                else if (player4.ToLower() == Bot.Player.Username.ToLower())
+                else if (player4!.ToLower() == Bot.Player.Username.ToLower())
                     ultraDarkonClass(4);
                 break;
         }
@@ -1318,49 +1319,49 @@ public class CoreUltra
         switch (optionClass)
         {
             case 1:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Legion Revenant",
-                    Bot.Config.Get<string>("Arcana"),
-                    Bot.Config.Get<string>("Vainglory"),
-                    Bot.Config.Get<string>("WizHelm"),
+                    Bot.Config!.Get<string>("Arcana")!,
+                    Bot.Config!.Get<string>("Vainglory")!,
+                    Bot.Config!.Get<string>("WizHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 2:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 // equipAllNeeded(
                 //     "Verus DoomKnight",
-                //     Bot.Config.Get<string>("Dauntless"),
-                //     Bot.Config.Get<string>("Lament"),
-                //     Bot.Config.Get<string>("WizHelm"),
+                //     Bot.Config!.Get<string>("Dauntless")!,
+                //     Bot.Config!.Get<string>("Lament")!,
+                //     Bot.Config!.Get<string>("WizHelm")!,
                 //     "Scroll of Enrage"
                 // );
                 equipAllNeeded(
                     "Verus DoomKnight",
-                    Bot.Config.Get<string>("Dauntless"),
-                    Bot.Config.Get<string>("Vainglory"),
-                    Bot.Config.Get<string>("AnimaHelm"),
+                    Bot.Config!.Get<string>("Dauntless")!,
+                    Bot.Config!.Get<string>("Vainglory")!,
+                    Bot.Config!.Get<string>("AnimaHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 3:
-                skillList = new int[] { 1, 3, 4 }; // AweBlast
+                skillList = new[] { 1, 3, 4 }; // AweBlast
                 equipAllNeeded(
                     "Lord Of Order",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Avarice"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Avarice")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
             case 4:
-                skillList = new int[] { 1, 2, 3, 4 }; // ravenous
+                skillList = new[] { 1, 2, 3, 4 }; // ravenous
                 equipAllNeeded(
                     "ArchPaladin",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Avarice"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Avarice")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
@@ -1373,45 +1374,45 @@ public class CoreUltra
         {
             case 1:
                 monsPriorityID = "1,3,2";
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Legion Revenant",
-                    Bot.Config.Get<string>("Arcana"),
-                    Bot.Config.Get<string>("Vainglory"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("Arcana")!,
+                    Bot.Config!.Get<string>("Vainglory")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 2:
                 monsPriorityID = "3,1,2";
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Quantum Chronomancer",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Lament"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Lament")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 3:
                 monsPriorityID = "2";
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Lord Of Order",
-                    Bot.Config.Get<string>("AweBlast"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("AweBlast")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
             case 4:
                 monsPriorityID = "2";
-                skillList = new int[] { 1, 2, 3, 4 }; // ravenous
+                skillList = new[] { 1, 2, 3, 4 }; // ravenous
                 equipAllNeeded(
                     "ArchPaladin",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
@@ -1424,42 +1425,42 @@ public class CoreUltra
         switch (optionClass)
         {
             case 1:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Legion Revenant",
-                    Bot.Config.Get<string>("Arcana"),
-                    Bot.Config.Get<string>("Vainglory"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("Arcana")!,
+                    Bot.Config!.Get<string>("Vainglory")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 2:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Quantum Chronomancer",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Lament"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Lament")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
             case 3:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Lord Of Order",
-                    Bot.Config.Get<string>("AweBlast"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("AweBlast")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
             case 4:
-                skillList = new int[] { 1, 2, 3, 4 }; // ravenous
+                skillList = new[] { 1, 2, 3, 4 }; // ravenous
                 equipAllNeeded(
                     "ArchPaladin",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Enrage"
                 );
 
@@ -1473,42 +1474,42 @@ public class CoreUltra
         switch (optionClass)
         {
             case 1:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Legion Revenant",
-                    Bot.Config.Get<string>("Arcana"),
-                    Bot.Config.Get<string>("Vainglory"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("Arcana")!,
+                    Bot.Config!.Get<string>("Vainglory")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 2:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Quantum Chronomancer",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Lament"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Lament")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
             case 3:
-                skillList = new int[] { 1, 3, 4 };
+                skillList = new[] { 1, 3, 4 };
                 equipAllNeeded(
                     "Lord Of Order",
-                    Bot.Config.Get<string>("AweBlast"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("AweBlast")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
             case 4:
-                skillList = new int[] { 1, 2, 3, 4 }; // ravenous
+                skillList = new[] { 1, 2, 3, 4 }; // ravenous
                 equipAllNeeded(
                     "ArchPaladin",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
@@ -1521,42 +1522,42 @@ public class CoreUltra
         switch (optionClass)
         {
             case 1:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Legion Revenant",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Vainglory"),
-                    Bot.Config.Get<string>("WizHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Vainglory")!,
+                    Bot.Config!.Get<string>("WizHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 2:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "StoneCrusher",
-                    Bot.Config.Get<string>("Lacerate"),
-                    Bot.Config.Get<string>("Absolution"),
-                    Bot.Config.Get<string>("WizHelm"),
+                    Bot.Config!.Get<string>("Lacerate")!,
+                    Bot.Config!.Get<string>("Absolution")!,
+                    Bot.Config!.Get<string>("WizHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
             case 3:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Lord Of Order",
-                    Bot.Config.Get<string>("AweBlast"),
-                    Bot.Config.Get<string>("Absolution"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("AweBlast")!,
+                    Bot.Config!.Get<string>("Absolution")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
             case 4:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "ArchPaladin",
-                    Bot.Config.Get<string>("Arcana"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("Arcana")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
@@ -1569,42 +1570,42 @@ public class CoreUltra
         switch (optionClass)
         {
             case 1:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Legion Revenant",
-                    Bot.Config.Get<string>("Dauntless"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("WizHelm"),
+                    Bot.Config!.Get<string>("Dauntless")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("WizHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 2:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Quantum Chronomancer",
-                    Bot.Config.Get<string>("Dauntless"),
-                    Bot.Config.Get<string>("Lament"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("Dauntless")!,
+                    Bot.Config!.Get<string>("Lament")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
             case 3:
-                skillList = new int[] { 1, 2, 3, 4, 5 };
+                skillList = new[] { 1, 2, 3, 4, 5 };
                 equipAllNeeded(
                     "Chaos Avenger",
-                    Bot.Config.Get<string>("Dauntless"),
-                    Bot.Config.Get<string>("Lament"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("Dauntless")!,
+                    Bot.Config!.Get<string>("Lament")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 4:
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Verus DoomKnight",
-                    Bot.Config.Get<string>("Dauntless"),
-                    Bot.Config.Get<string>("Lament"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("Dauntless")!,
+                    Bot.Config!.Get<string>("Lament")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
@@ -1617,45 +1618,45 @@ public class CoreUltra
         {
             case 1:
                 monsPriorityID = "2,1";
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Legion Revenant",
-                    Bot.Config.Get<string>("Arcana"),
-                    Bot.Config.Get<string>("Vainglory"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("Arcana")!,
+                    Bot.Config!.Get<string>("Vainglory")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 2:
                 monsPriorityID = "1,2";
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Quantum Chronomancer",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Lament"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Lament")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
             case 3:
                 monsPriorityID = "2,1";
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Lord Of Order",
-                    Bot.Config.Get<string>("AweBlast"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("AweBlast")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 4:
                 monsPriorityID = "2,1";
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "ArchPaladin",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
@@ -1668,45 +1669,45 @@ public class CoreUltra
         {
             case 1:
                 monsPriorityID = "3,1,2";
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Legion Revenant",
-                    Bot.Config.Get<string>("Arcana"),
-                    Bot.Config.Get<string>("Vainglory"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("Arcana")!,
+                    Bot.Config!.Get<string>("Vainglory")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 2:
                 monsPriorityID = "3,1,2";
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Chaos Avenger",
-                    Bot.Config.Get<string>("Dauntless"),
-                    Bot.Config.Get<string>("Lament"),
-                    Bot.Config.Get<string>("ForgeHelm"),
+                    Bot.Config!.Get<string>("Dauntless")!,
+                    Bot.Config!.Get<string>("Lament")!,
+                    Bot.Config!.Get<string>("ForgeHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 3:
                 monsPriorityID = "3,1,2";
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "Lord Of Order",
-                    Bot.Config.Get<string>("AweBlast"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("AweBlast")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Life Steal"
                 );
                 break;
             case 4:
                 monsPriorityID = "1,2,3";
-                skillList = new int[] { 1, 2, 3, 4 };
+                skillList = new[] { 1, 2, 3, 4 };
                 equipAllNeeded(
                     "ArchPaladin",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
@@ -1719,43 +1720,43 @@ public class CoreUltra
         switch (optionClass)
         {
             case 1:
-                skillList = new int[] { 1, 2, 3, 4, 5 };
+                skillList = new[] { 1, 2, 3, 4, 5 };
                 equipAllNeeded(
                     "Legion Revenant",
-                    Bot.Config.Get<string>("Arcana"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("WizHelm"),
+                    Bot.Config!.Get<string>("Arcana")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("WizHelm")!,
                     "Scroll of Enrage"
                 );
-                
+
                 break;
             case 2:
-                skillList = new int[] { 2, 3, 4 };
+                skillList = new[] { 2, 3, 4 };
                 equipAllNeeded(
                     "Verus DoomKnight",
-                    Bot.Config.Get<string>("Dauntless"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("Dauntless")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Potent Honor Potion"
                 );
                 break;
             case 3:
-                skillList = new int[] { 1, 2, 3, 2, 4 };
+                skillList = new[] { 1, 2, 3, 2, 4 };
                 equipAllNeeded(
                     "Lord Of Order",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 4:
-                skillList = new int[] { 1, 2, 3, 2, 4 };
+                skillList = new[] { 1, 2, 3, 2, 4 };
                 equipAllNeeded(
                     "ArchPaladin",
-                    Bot.Config.Get<string>("Lacerate"),
-                    Bot.Config.Get<string>("Penitence"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("Lacerate")!,
+                    Bot.Config!.Get<string>("Penitence")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
@@ -1768,72 +1769,72 @@ public class CoreUltra
         switch (optionClass)
         {
             case 1:
-                skillList = new int[] { 1, 2, 3, 4, 5 };
+                skillList = new[] { 1, 2, 3, 4, 5 };
                 equipAllNeeded(
                     "LightCaster",
-                    Bot.Config.Get<string>("Elysium"),
-                    Bot.Config.Get<string>("Lament"),
-                    Bot.Config.Get<string>("WizHelm"),
+                    Bot.Config!.Get<string>("Elysium")!,
+                    Bot.Config!.Get<string>("Lament")!,
+                    Bot.Config!.Get<string>("WizHelm")!,
                     "Scroll of Enrage"
                 );
                 // equipAllNeeded(
                 //     "Legion Revenant",
-                //     Bot.Config.Get<string>("Arcana"),
-                //     Bot.Config.Get<string>("Lament"),
-                //     Bot.Config.Get<string>("WizHelm"),
+                //     Bot.Config!.Get<string>("Arcana")!,
+                //     Bot.Config!.Get<string>("Lament")!,
+                //     Bot.Config!.Get<string>("WizHelm")!,
                 //     "Scroll of Enrage"
                 // );
                 break;
             case 2:
-                skillList = new int[] { 1, 2, 3, 4, 5 };
+                skillList = new[] { 1, 2, 3, 4, 5 };
                 equipAllNeeded(
                     "Verus DoomKnight",
-                    Bot.Config.Get<string>("Dauntless"),
-                    Bot.Config.Get<string>("Vainglory"),
-                    Bot.Config.Get<string>("AnimaHelm"),
+                    Bot.Config!.Get<string>("Dauntless")!,
+                    Bot.Config!.Get<string>("Vainglory")!,
+                    Bot.Config!.Get<string>("AnimaHelm")!,
                     "Potent Honor Potion"
                 );
                 // equipAllNeeded(
                 //     "LightCaster",
-                //     Bot.Config.Get<string>("Elysium"),
-                //     Bot.Config.Get<string>("Lament"),
-                //     Bot.Config.Get<string>("WizHelm"),
+                //     Bot.Config!.Get<string>("Elysium")!,
+                //     Bot.Config!.Get<string>("Lament")!,
+                //     Bot.Config!.Get<string>("WizHelm")!,
                 //     "Scroll of Enrage"
                 // );
                 break;
             case 3:
-                skillList = new int[] { 1, 2, 3, 4, 5 };
+                skillList = new[] { 1, 2, 3, 4, 5 };
                 equipAllNeeded(
                     "Lord Of Order",
-                    Bot.Config.Get<string>("Valiance"),
-                    Bot.Config.Get<string>("Absolution"),
-                    Bot.Config.Get<string>("LuckHelm"),
+                    Bot.Config!.Get<string>("Valiance")!,
+                    Bot.Config!.Get<string>("Absolution")!,
+                    Bot.Config!.Get<string>("LuckHelm")!,
                     "Scroll of Enrage"
                 );
                 break;
             case 4:
-                skillList = new int[] { 1, 2, 3, 4, 5 };
+                skillList = new[] { 1, 2, 3, 4, 5 };
                 equipAllNeeded(
                     "Legion Revenant",
-                    Bot.Config.Get<string>("Arcana"),
-                    Bot.Config.Get<string>("Avarice"),
-                    Bot.Config.Get<string>("PneumaHelm"),
+                    Bot.Config!.Get<string>("Arcana")!,
+                    Bot.Config!.Get<string>("Avarice")!,
+                    Bot.Config!.Get<string>("PneumaHelm")!,
                     "Scroll of Enrage"
                 );
-                // skillList = new int[] { 1, 2, 3, 2, 5 };
+                // skillList = new [] { 1, 2, 3, 2, 5 };
                 // equipAllNeeded(
                 //     "Frostval Barbarian",
-                //     Bot.Config.Get<string>("Valiance"),
-                //     Bot.Config.Get<string>("Absolution"),
-                //     Bot.Config.Get<string>("AnimaHelm"),
+                //     Bot.Config!.Get<string>("Valiance")!,
+                //     Bot.Config!.Get<string>("Absolution")!,
+                //     Bot.Config!.Get<string>("AnimaHelm")!,
                 //     "Scroll of Enrage"
                 // );
-                // skillList = new int[] { 1, 2, 3, 2, 4 };
+                // skillList = new [] { 1, 2, 3, 2, 4 };
                 // equipAllNeeded(
                 //     "StoneCrusher",
-                //     Bot.Config.Get<string>("Valiance"),
-                //     Bot.Config.Get<string>("Absolution"),
-                //     Bot.Config.Get<string>("WizHelm"),
+                //     Bot.Config!.Get<string>("Valiance")!,
+                //     Bot.Config!.Get<string>("Absolution")!,
+                //     Bot.Config!.Get<string>("WizHelm")!,
                 //     "Scroll of Enrage"
                 // );
                 break;
@@ -1846,13 +1847,13 @@ public class CoreUltra
         string cape,
         string helm,
         string scroll,
-        string pots = null
+        string? pots = null
     )
     {
-        Core.Equip(Bot.Config.Get<string>("SafeClass"));
-        Core.Equip(Bot.Config.Get<string>("SafePot"));
+        Core.Equip(Bot.Config!.Get<string>("SafeClass")!);
+        Core.Equip(Bot.Config!.Get<string>("SafePot")!);
         Core.Equip(className);
-        Core.Equip(Bot.Config.Get<string>("SafePot"));
+        Core.Equip(Bot.Config!.Get<string>("SafePot")!);
         Core.Equip(weapon);
         Core.Equip(cape);
         Core.Equip(helm);
@@ -1888,16 +1889,16 @@ public class CoreUltra
 
     private bool belowHealthPercentage(int percentage)
     {
-        int percent = (Bot.Player.Health / Bot.Player.MaxHealth) * 100;
+        int percent = Bot.Player.Health / Bot.Player.MaxHealth * 100;
         return percent <= percentage;
     }
 
     private void setPlayerName()
     {
-        player1 = Bot.Config!.Get<string>("player1");
-        player2 = Bot.Config!.Get<string>("player2");
-        player3 = Bot.Config!.Get<string>("player3");
-        player4 = Bot.Config!.Get<string>("player4");
+        player1 = Bot.Config!.Get<string>("player1") ?? string.Empty!;
+        player2 = Bot.Config!.Get<string>("player2") ?? string.Empty!;
+        player3 = Bot.Config!.Get<string>("player3") ?? string.Empty!;
+        player4 = Bot.Config!.Get<string>("player4") ?? string.Empty!;
     }
 
     private void setTargetTime(int time)
@@ -1905,10 +1906,12 @@ public class CoreUltra
         DateTime startTime = DateTime.Now;
         targetTime = startTime.AddSeconds(time);
     }
-    private void setWaitTaunt(bool wait){
+    private void setWaitTaunt(bool wait)
+    {
         waitTaunt = wait;
     }
-    private bool getWaitTaunt(){
+    private bool getWaitTaunt()
+    {
         return waitTaunt;
     }
 

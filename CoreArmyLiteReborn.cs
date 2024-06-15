@@ -38,15 +38,15 @@ public class CoreArmyLiteReborn
 
     public void setLogName(string name)
     {
-        armyLogging.setLogName(name);
+        armyLogging.SetLogName(name);
     }
 
     public void registerMessage(string message, bool delPrevMsg = true)
     {
-        armyLogging.registerMessage(message);
+        armyLogging.RegisterMessage(message);
         if (delPrevMsg)
         {
-            if (Bot.Config.Get<string>("player1").ToLower() == Bot.Player.Username.ToLower())
+            if (Bot.Config!.Get<string>("player1")!.ToLower() == Bot.Player.Username.ToLower())
             {
                 Core.Logger("Clearing log");
                 armyLogging.ClearLogFile();
@@ -56,7 +56,7 @@ public class CoreArmyLiteReborn
 
     public void ClearLogFile()
     {
-        if (Bot.Config.Get<string>("player1").ToLower() == Bot.Player.Username.ToLower())
+        if (Bot.Config!.Get<string>("player1")!.ToLower() == Bot.Player.Username.ToLower())
         {
             Core.Logger("Clearing log");
             armyLogging.ClearLogFile();
@@ -65,12 +65,12 @@ public class CoreArmyLiteReborn
 
     public bool isEmpty()
     {
-        return armyLogging.isEmpty();
+        return armyLogging.IsEmpty();
     }
 
     public bool isAlreadyInLog(string[] playersList)
     {
-        return armyLogging.isAlreadyInLog(playersList);
+        return armyLogging.IsAlreadyInLog(playersList);
     }
 
     public bool sendDone(int tryCount = 1)
@@ -80,7 +80,7 @@ public class CoreArmyLiteReborn
         {
             try
             {
-                if (!armyLogging.isAlreadyInLog(Players()))
+                if (!armyLogging.IsAlreadyInLog(Players()))
                 {
                     armyLogging.WriteLog(
                         $"{Bot.Player.Username.ToLower()}:done:{armyLogging.message}"
@@ -104,7 +104,7 @@ public class CoreArmyLiteReborn
         {
             try
             {
-                if (armyLogging.isAlreadyInLog(Players()))
+                if (armyLogging.IsAlreadyInLog(Players()))
                     return true;
             }
             catch { }
@@ -178,7 +178,7 @@ public class CoreArmyLiteReborn
         }
     }
 
-    public void AggroMonStart(string map = null)
+    public void AggroMonStart(string? map = null)
     {
         if (aggroCTS is not null)
             AggroMonStop();
@@ -497,8 +497,8 @@ public class CoreArmyLiteReborn
 
     public bool IsMonsterAlive(string monster)
     {
-        string jsonData = Bot.Flash.Call("availableMonsters");
-        var monsters = JArray.Parse(jsonData);
+        string? jsonData = Bot.Flash.Call("availableMonsters");
+        var monsters = JArray.Parse(jsonData!);
 
         if (monsters.Count == 0)
         {
@@ -718,7 +718,7 @@ public class CoreArmyLiteReborn
                 if (Bot.Config == null)
                     break;
 
-                string? player = Bot.Config.Get<string>("player" + i++);
+                string? player = Bot.Config!.Get<string>("player" + i++);
                 if (String.IsNullOrEmpty(player))
                     break;
 
@@ -1663,39 +1663,37 @@ public class CoreArmyLiteReborn
 public class ArmyLogging
 {
     private static readonly object lockObject = new object();
-    private string logFilePath;
-    public string message;
+    private string? logFilePath;
+    public string? message;
 
     // public ArmyLogging(string fileName = "ArmyLog.txt")
     // {
     //     logFilePath = Path.Combine(ClientFileSources.SkuaOptionsDIR, fileName);
     //     ClearLogFile();
     // }
-    public void setLogName(string fileName)
+    public void SetLogName(string fileName)
     {
         logFilePath = Path.Combine(ClientFileSources.SkuaOptionsDIR, fileName + ".log");
         //ClearLogFile();
     }
 
-    public void registerMessage(string msg)
+    public void RegisterMessage(string msg)
     {
         message = msg;
     }
 
-    public bool isEmpty()
+    public bool IsEmpty()
     {
-        if (new FileInfo(logFilePath).Length == 0)
+        if (new FileInfo(logFilePath!).Length == 0)
         {
             return true;
         }
 
-        using (FileStream stream = File.OpenRead(logFilePath))
-        {
-            return stream.Length == 0;
-        }
+        using FileStream stream = File.OpenRead(logFilePath!);
+        return stream.Length == 0;
     }
 
-    public bool isAlreadyInLog(string[] playersList)
+    public bool IsAlreadyInLog(string[] playersList)
     {
         try
         {
@@ -1721,25 +1719,22 @@ public class ArmyLogging
     {
         lock (lockObject)
         {
-            using (StreamWriter w = File.AppendText(logFilePath))
-            {
-                w.WriteLine($"{logMessage}");
-            }
+            using StreamWriter w = File.AppendText(logFilePath!);
+            w.WriteLine($"{logMessage}");
         }
     }
 
     public List<string> ReadLog()
     {
-        List<string> lines = new List<string>();
+        List<string> lines = new();
         lock (lockObject)
         {
-            using (StreamReader r = File.OpenText(logFilePath))
+            using StreamReader r = File.OpenText(logFilePath!);
+            string line = r.ReadLine() ?? string.Empty;
+            while (line != null)
             {
-                string line;
-                while ((line = r.ReadLine()) != null)
-                {
-                    lines.Add(line);
-                }
+                lines.Add(line);
+
             }
         }
         return lines;
@@ -1749,10 +1744,9 @@ public class ArmyLogging
     {
         lock (lockObject)
         {
-            using (FileStream fs = File.Open(logFilePath, FileMode.Create, FileAccess.Write))
-            {
-                // File is truncated and cleared
-            }
+            using FileStream fs = File.Open(logFilePath!, FileMode.Create, FileAccess.Write);
+            // File is truncated and cleared
+
         }
     }
 }
